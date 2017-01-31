@@ -200,15 +200,8 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
-    if (collection.length === 0) {
-      return true;
-    }
     return _.reduce(collection, function(a, b) {
-      if (!!iterator(b) && a) {
-        return false;
-      } else {
-        return true;
-      }
+      return iterator ? !!iterator(b) && a : _.identity(b) && a;
     }, true);
   };
 
@@ -216,6 +209,13 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    // return the NOT version of 'every' which will take a fuction
+      // return a check for the iterator 
+        // if it exists run the falsy value of the iterator(item)
+          // else retur the falsy value of the identify on the item
+    return !_.every(collection, function(item) {
+      return iterator ? !iterator(item) : !_.identity(item);
+    });
   };
 
 
@@ -238,11 +238,27 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    var objects = [...arguments].slice(1);
+    _.each(objects, function(item) {
+      for (var key in item) {
+        obj[key] = item[key];
+       }
+    });
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    var objects = [...arguments].slice(1);
+      _.each(objects, function(item) {
+        for (var key in item) {
+          if (!obj.hasOwnProperty(key)) {
+          obj[key] = item[key];
+        }
+      }
+    });
+    return obj;
   };
 
 
