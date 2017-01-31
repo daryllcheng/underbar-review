@@ -164,6 +164,24 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    // determine if an accum was passed in 
+      // if it's not use the element and set it to accumolator else just use the accun
+    // iterate through collection 
+     // for each element...apply the accumulator plus iterator(element)
+      // push results and return 
+    if (arguments.length === 2) {
+      var accumulator = collection[0];
+      for (var i = 1; i < collection.length; i++) {
+        accumulator = iterator(accumulator, collection[i])
+
+      }
+      return accumulator;
+    } else { 
+      _.each(collection, function(element) {
+        accumulator = iterator(accumulator, element);
+      });
+      return accumulator;
+    }
   };
 
   // Determine if the array or object contains a given value (using `===`).

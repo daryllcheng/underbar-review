@@ -410,7 +410,7 @@
           { name: 'curly', age: 50 }
         ];
 
-        _.pluck(people, 'name');
+        _.pluck(people, 'name');  
 
         expect(people).to.eql([{ name: 'moe', age: 30 }, { name: 'curly', age: 50 }]);
       });
@@ -472,7 +472,7 @@
           // FILL_ME_IN
           // Add a line here that makes this test pass
           // for a working implementation of reduce
-          return memo;
+          orderTraversed.push(item)
         }, 10);
 
         expect(orderTraversed).to.eql([1, 2, 3, 4]);
