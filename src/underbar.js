@@ -342,7 +342,15 @@
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
     var arrCopy = [...array];
-    var 
+    var temp;
+    for (var i = 0; i < arrCopy.length; i++) {
+      var randomIdx = Math.floor(Math.random() * i);
+      temp = arrCopy[i];
+      arrCopy[i] = arrCopy[randomIdx];
+      arrCopy[randomIdx] = temp;
+    }
+    // console.log(results);
+    return arrCopy;
   };
 
 
