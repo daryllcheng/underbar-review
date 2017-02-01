@@ -302,15 +302,31 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    // contain a cache obj {}
+     // check if the cachce contains the called function
+     // then return the result of the called function from the cache 
+      // else... store the called function into the cache obj and return the value 
+    var cache = {};
+    return function () {
+      var args = JSON.stringify(arguments);
+      if (!cache[args]) {
+        cache[args] = func.apply(this, arguments);
+      }
+      return cache[args];
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
-  //
+  //{
+
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = [...arguments].slice(2);
+    // var args2 = args.slice(2);
+    setTimeout(function() {func.apply(this, args)}, wait);
   };
 
 
@@ -325,6 +341,8 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var arrCopy = [...array];
+    var 
   };
 
 
